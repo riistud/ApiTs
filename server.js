@@ -26,7 +26,7 @@ app.get('/transkripsi', async (req, res) => {
     // Ambil teks gabungan saja
     let transcriptText = '';
     if (data.content && Array.isArray(data.content)) {
-      transcriptText = data.content.map(item => item.text).join(' ');
+      transcriptText = data.content.map(item => item.text).join('\n');
     } else if (data.transcript) {
       transcriptText = data.transcript;
     } else {
