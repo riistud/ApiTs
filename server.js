@@ -23,7 +23,7 @@ app.get('/transkripsi', async (req, res) => {
 
     const data = await response.json();
 
-    // Ambil teks gabungan saja
+    // Ambil teks dengan \n di setiap baris
     let transcriptText = '';
     if (data.content && Array.isArray(data.content)) {
       transcriptText = data.content.map(item => item.text).join('\n');
@@ -33,7 +33,8 @@ app.get('/transkripsi', async (req, res) => {
       transcriptText = 'No transcript available';
     }
 
-    res.send(transcriptText); // Hanya kirim teks
+    res.setHeader('Content-Type', 'text/plain; charset=utf-8');
+    res.send(transcriptText); // Hanya kirim teks, per baris
   } catch (error) {
     console.error('Transcript error:', error);
     res.status(500).send('Failed to get transcript.');
